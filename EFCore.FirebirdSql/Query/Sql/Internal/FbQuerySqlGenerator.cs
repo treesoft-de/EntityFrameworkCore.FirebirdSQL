@@ -28,9 +28,7 @@ namespace EntityFrameworkCore.FirebirdSql.Query.Sql.Internal
 {
     public class FbQuerySqlGenerator : DefaultQuerySqlGenerator, IFbExpressionVisitor
     {
-        private static int _incrementLetter = 0;
         private bool _isLegacyDialect;
-        private static readonly string _letters = "bcdfghijklmnopqrstuvwxyz";
 
         protected override string TypedTrueLiteral => "1";
         protected override string TypedFalseLiteral => "0";
@@ -42,28 +40,6 @@ namespace EntityFrameworkCore.FirebirdSql.Query.Sql.Internal
             IFbOptions fBOptions)
             : base(dependencies, selectExpression)
             => _isLegacyDialect = fBOptions.IsLegacyDialect;
-
-        // HACK - Dialect 1
-        public override Expression VisitTable(TableExpression tableExpression)
-        {
-            if (_isLegacyDialect)
-            {
-                if (tableExpression.Alias.IndexOf(".", StringComparison.OrdinalIgnoreCase) > -1
-                    || _letters.IndexOf(tableExpression.Alias, StringComparison.OrdinalIgnoreCase) < 0)
-                {
-                    var letter = _letters[_incrementLetter];
-                    tableExpression.Alias = letter.ToString();
-
-                    _incrementLetter++;
-                    if (_incrementLetter >= _letters.Length)
-                    {
-                        _incrementLetter = 0;
-                    }
-                }
-            }
-
-            return base.VisitTable(tableExpression);
-        }
 
         public override Expression VisitSelect(SelectExpression selectExpression)
         {
