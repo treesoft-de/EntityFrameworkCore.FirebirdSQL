@@ -31,7 +31,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>TRACE;DEBUG;EFCORE</DefineConstants>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -70,5 +69,5 @@
       <LastGenOutput>Resources.cs</LastGenOutput>
     </None>
   </ItemGroup>
- 
+
 </Project>
