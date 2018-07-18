@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>EntityFrameworkCore.FirebirdSQL; FirebirdSQL; EntityFrameworkCore; Entity Framework Core;entity-framework-core;EF;Data;O/RM</PackageTags>
     <Description>EntityFrameworkCore.FirebirdSql is an ORM, created at the top of the Firebird ADO.NET (FirebirdSql.Data.FirebirdClient) Data Provider. It allows you to use Entity Framework Core 2.0 as an extension, to access Firebird (2.x, 3.x, 4.x)</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>EntityFrameworkCore.FirebirdSql</PackageId>
     <Product>EntityFrameworkCore.FirebirdSQL</Product>
     <PackageProjectUrl>https://github.com/ralmsdeveloper/EntityFrameworkCore.FirebirdSQL</PackageProjectUrl>
