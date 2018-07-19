@@ -29,13 +29,14 @@ namespace EntityFrameworkCore.FirebirdSql.Update.Internal
         public int Execute(IEnumerable<ModificationCommandBatch> commandBatches, IRelationalConnection connection)
         {
             var recordAffecteds = 0;
-
+            var openedConnection = false;
             IDbContextTransaction currentTransaction = default;
             try
             {
                 if (connection?.DbConnection?.State != System.Data.ConnectionState.Open)
                 {
                     connection.Open();
+                    openedConnection = true;
                 }
 
                 if (connection.CurrentTransaction == null)
@@ -60,7 +61,10 @@ namespace EntityFrameworkCore.FirebirdSql.Update.Internal
             }
             finally
             {
-                connection?.Close();
+                if (openedConnection)
+                {
+                    connection?.Close();
+                }
             }
             return recordAffecteds;
         }
@@ -71,13 +75,14 @@ namespace EntityFrameworkCore.FirebirdSql.Update.Internal
             CancellationToken cancellationToken = default)
         {
             var RowsAffecteds = 0;
-
+            var openedConnection = false;
             FbRelationalTransaction currentTransaction = null;
             try
             {
                 if (connection?.DbConnection?.State != System.Data.ConnectionState.Open)
                 {
                     await connection.OpenAsync(cancellationToken, false).ConfigureAwait(false);
+                    openedConnection = true;
                 }
 
                 if (connection.CurrentTransaction == null)
@@ -109,7 +114,10 @@ namespace EntityFrameworkCore.FirebirdSql.Update.Internal
             }
             finally
             {
-                connection?.Close();
+                if (openedConnection)
+                {
+                    connection?.Close();
+                }
             }
             return RowsAffecteds;
         }
